@@ -1,23 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import "./App.css";
+import Body from "./components/Body";
+import About from "./components/About";
+import Home from "./components/Home";
+
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faPhp, faLaravel,faJs,faVuejs,faReact,faBootstrap,faCss3Alt,faHtml5} from '@fortawesome/free-brands-svg-icons';
+import { faBars,faXmark,faDatabase} from '@fortawesome/free-solid-svg-icons'
+
+library.add(faBars,faXmark,faPhp,faLaravel,faDatabase,faJs,faVuejs,faReact,faCss3Alt,faBootstrap,faHtml5)
 
 function App() {
+  const appRouter = createBrowserRouter([
+    {
+      path: "/",
+      element: <Body />,
+      children: [
+        {
+          path: "/",
+          element: <Home />,
+        },
+        {
+          path: "/about",
+          element: <About />,
+        }
+      ]
+    },
+  ]);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <RouterProvider router={appRouter} />
     </div>
   );
 }
